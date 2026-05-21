@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analyses SAÉ | Younes Sadouki</title>
+    
+    <!-- Import de la même police que la page d'accueil -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            /* Mêmes variables que index.html */
+            --primary-dark: #0A192F;
+            --primary: #112B4C;
+            --secondary: #0077B6;
+            --accent-cyan: #00B4D8;
+            --accent-bg: #E0FBFC;
+            --text-dark: #1E293B;
+            --text-light: #475569;
+            --white: #FFFFFF;
+            
+            --bg-gradient: linear-gradient(135deg, #F8FAFC 0%, #EFF6FF 100%);
+            --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+            --hover-shadow: 0 20px 25px -5px rgba(0, 119, 182, 0.1), 0 10px 10px -5px rgba(0, 119, 182, 0.04);
+            --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+        }
+
+        body {
+            background: var(--bg-gradient);
+            color: var(--text-dark);
+            line-height: 1.8;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* --- NAVIGATION --- */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(10, 25, 47, 0.85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 1.2rem 4rem;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        nav .logo {
+            color: var(--white);
+            font-size: 1.5rem;
+            font-weight: 800;
+            text-decoration: none;
+            letter-spacing: 0.5px;
+        }
+
+        nav .logo span {
+            color: var(--accent-cyan);
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 3rem;
+        }
+
+        nav a {
+            color: rgba(255, 255, 255, 0.75);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: var(--transition);
+            position: relative;
+            padding: 0.5rem 0;
+        }
+
+        nav a:hover, nav a.active {
+            color: var(--accent-cyan);
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--accent-cyan);
+            transition: var(--transition);
+            border-radius: 2px;
+        }
+
+        nav a:hover::after, nav a.active::after {
+            width: 100%;
+        }
+
+        /* --- CONTENU PRINCIPAL --- */
+        main {
+            padding: 9rem 2rem 4rem;
+            max-width: 1000px; /* Plus centré pour la lecture des rapports */
+            margin: 0 auto;
+            animation: fadeIn 1s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .page-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--primary-dark);
+            margin-bottom: 3.5rem;
+            text-align: center;
+            letter-spacing: -0.5px;
+            position: relative;
+        }
+
+        .page-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--accent-cyan);
+            border-radius: 4px;
+        }
+
+        /* --- ONGLETS (DETAILS / SUMMARY) --- */
+        details {
+            background: var(--white);
+            margin-bottom: 2rem;
+            border-radius: 20px;
+            box-shadow: var(--card-shadow);
+            border: 1px solid rgba(0,0,0,0.03);
+            transition: var(--transition);
+            overflow: hidden; /* Garde les bords arrondis */
+        }
+
+        details:hover {
+            box-shadow: var(--hover-shadow);
+            transform: translateY(-2px);
+        }
+
+        summary {
+            padding: 2rem;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--primary);
+            cursor: pointer;
+            list-style: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background-color 0.3s ease;
+        }
+
+        summary::-webkit-details-marker {
+            display: none; /* Masque la flèche native */
+        }
+
+        /* Flèche personnalisée animée */
+        summary::after {
+            content: '↓';
+            font-size: 1.5rem;
+            color: var(--accent-cyan);
+            transition: transform 0.4s ease;
+            font-family: monospace;
+            background: var(--accent-bg);
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+
+        details[open] summary::after {
+            transform: rotate(180deg);
+            background: var(--primary);
+            color: var(--white);
+        }
+        
+        details[open] summary {
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+        /* --- CONTENU INTÉRIEUR --- */
+        .content {
+            padding: 2rem;
+            color: var(--text-light);
+            animation: slideDown 0.4s ease-out;
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .content > p:first-of-type {
+            font-size: 1.1rem;
+            color: var(--secondary);
+            margin-bottom: 2rem;
+            background: var(--accent-bg);
+            padding: 1rem 1.5rem;
+            border-radius: 12px;
+            display: inline-block;
+        }
+
+        .content h4 {
+            color: var(--primary-dark);
+            font-size: 1.2rem;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            border-left: 4px solid var(--accent-cyan);
+            padding-left: 1rem;
+        }
+        
+        .content h4:first-of-type {
+            margin-top: 0;
+        }
+
+        .content p {
+            margin-bottom: 1.2rem;
+            text-align: justify;
+        }
+
+        .content ul {
+            margin-bottom: 1.5rem;
+            padding-left: 1.5rem;
+        }
+        
+        .content li {
+            margin-bottom: 0.5rem;
+        }
+
+        .content strong {
+            color: var(--primary);
+        }
+
+        /* --- BOUTONS --- */
+        .btn-container {
+            margin-top: 2.5rem;
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.8rem 1.8rem;
+            background-color: var(--secondary);
+            color: var(--white);
+            text-decoration: none;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: var(--transition);
+            border: 1px solid transparent;
+        }
+
+        .btn:hover {
+            background-color: var(--primary);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 15px rgba(0, 119, 182, 0.2);
+            color: var(--white);
+        }
+
+        .btn-github {
+            background-color: var(--primary-dark);
+        }
+
+        .btn-github:hover {
+            background-color: #000;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            background: var(--primary-dark);
+            color: rgba(255,255,255,0.7);
+            text-align: center;
+            padding: 3rem 2rem;
+            margin-top: 6rem;
+            font-size: 0.95rem;
+            border-top: 4px solid var(--accent-cyan);
+        }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 1024px) {
+            nav { padding: 1.2rem 2rem; }
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                flex-direction: column;
+                gap: 1rem;
+                padding: 1rem;
+            }
+            nav ul { gap: 1.5rem; }
+            main { padding-top: 8rem; }
+            .page-title { font-size: 2rem; }
+            summary { padding: 1.5rem; font-size: 1.1rem; }
+            .content { padding: 1.5rem; }
+            .btn { width: 100%; justify-content: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Barre de navigation identique à index.html -->
+    <nav>
+        <a href="index.html" class="logo">Younes<span>.Sadouki</span></a>
+        <ul>
+            <li><a href="index.html">Présentation</a></li>
+            <li><a href="sae.html" class="active">Analyses SAÉ</a></li>
+            <li><a href="projets_cv.html">Projets & CV</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <h1 class="page-title">Mes Projets (SAÉ) - Première Année R&T</h1>
+
+        <details>
+            <summary>SAÉ 1.01 : Sensibilisation à l'hygiène informatique et à la cybersécurité</summary>
+            <div class="content">
+                <p><strong>Focus technique : Sécurité et gestion des mots de passe</strong></p>
+                
+                <h4>Contexte et Objectifs</h4>
+                <p>Dans le rôle d'un professionnel Réseaux et Télécommunications (R&T), l'objectif de ce projet était d'accompagner de nouveaux collaborateurs face aux risques de leur environnement numérique. La mission principale consistait à sensibiliser les utilisateurs aux menaces cybernétiques communes et à leur faire adopter les bonnes pratiques d'hygiène informatique de manière claire, vulgarisée et percutante.</p>
+                
+                <h4>Mes Missions et Réalisations</h4>
+                <ul>
+                    <li><strong>Recherche et expérimentation technique :</strong> Travail en groupe et en autonomie sur des environnements virtuels (machines locales et VM sur Proxmox) tournant sous la distribution Debian.</li>
+                    <li><strong>Audit et test d'intrusion (Lot A) :</strong> Mise en situation d'attaques par force brute et par dictionnaire à l'aide d'outils sous Debian pour démontrer concrètement la vulnérabilité des mots de passe faibles.</li>
+                    <li><strong>Déploiement de solutions de sécurité :</strong> Analyse des principales fonctionnalités des gestionnaires de mots de passe, recherche des solutions compatibles sous Linux, et mise en œuvre pratique d'un gestionnaire pour sécuriser les accès.</li>
+                    <li><strong>Formation théorique :</strong> Suivi en autonomie du MOOC SecNumacadémie de l'ANSSI pour consolider mes bases en sécurité des systèmes d'information.</li>
+                </ul>
+
+                <h4>Compétences développées</h4>
+                <ul>
+                    <li><strong>Vulgarisation et communication :</strong> Capacité à expliquer des concepts complexes à des utilisateurs non-spécialistes.</li>
+                    <li><strong>Sécurité des identités :</strong> Compréhension poussée de la force des mots de passe et des politiques de renouvellement.</li>
+                    <li><strong>Environnement Linux :</strong> Utilisation et administration de base d'une distribution Debian.</li>
+                </ul>
+
+                <div class="btn-container">
+                    <a href="https://www.canva.com/design/DAG111DehjU/TqRs-8VCGPqGZ6ofvgHiPw/view?utm_content=DAG111DehjU&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=hdef0c803ba" target="_blank" class="btn">Voir la présentation Canva</a>
+                </div>
+            </div>
+        </details>
+
+        <details>
+            <summary>SAÉ 1.02 : S'initier aux réseaux informatiques</summary>
+            <div class="content">
+                <p><strong>Focus technique : Conception, déploiement et sécurisation d'une infrastructure réseau et système</strong></p>
+                
+                <h4>Contexte et Objectifs</h4>
+                <p>L'objectif de ce projet global était d'être confronté à la découverte et à la mise en œuvre d'un premier réseau informatique complet. La problématique professionnelle consistait à appréhender la diversité des équipements, comprendre leurs interactions, et configurer techniquement l'ensemble des éléments pour aboutir à un fonctionnement stable et sécurisé.</p>
+                
+                <h4>Mes Missions et Réalisations</h4>
+                <ul>
+                    <li><strong>Architecture et commutation :</strong> Élaboration d'un plan d'adressage IPv4. Configuration de commutateurs de niveau 2 (Cisco 2960) et 2/3 (Cisco 3560) avec déploiement du RSTP, de l'agrégation de liens et du routage inter-VLAN.</li>
+                    <li><strong>Routage :</strong> Paramétrage d'un routeur LAN/WAN (Cisco 2911) intégrant des règles de routage statique.</li>
+                    <li><strong>Administration Système (Linux) :</strong> Installation et configuration d'une machine virtuelle sous distribution Debian.</li>
+                    <li><strong>Déploiement de services :</strong> Mise en production de services d'infrastructure sur le serveur (Web, FTP, DNS cache, TFTP).</li>
+                </ul>
+
+                <h4>Compétences développées</h4>
+                <ul>
+                    <li><strong>Sécurité des réseaux :</strong> Prévention des tempêtes de broadcast et sécurisation des ports d'accès.</li>
+                    <li><strong>Gestion des accès sécurisés :</strong> Implémentation du protocole SSH avec authentification par clés publique/privée.</li>
+                    <li><strong>Intégration d'infrastructure :</strong> Capacité à faire communiquer la couche matérielle (routeurs, switchs) avec la couche logicielle (services Linux).</li>
+                </ul>
+
+                <div class="btn-container">
+                    <a href="https://drive.google.com/file/d/1QFGzKZNnn_11APZ5YDkEZV8u1DU_1v4j/view?usp=sharing" target="_blank" class="btn">Voir la Maquette du projet</a>
+                </div>
+            </div>
+        </details>
+
+        <details>
+            <summary>SAÉ 1.03 : Découverte d'un dispositif de transmission - Mesure DTF</summary>
+            <div class="content">
+                <p><strong>Focus technique : Localisation de défauts et mesure de longueur de câbles par réflectométrie</strong></p>
+                
+                <h4>Contexte et Objectifs</h4>
+                <p>L'objectif de ce projet pratique était de découvrir et de maîtriser la mesure <em>Distance To Fault</em> (DTF), essentielle pour déterminer la longueur exacte d'un câble ou localiser des défauts physiques. Ce projet a été mené en totale autonomie par notre groupe, ce qui a exigé une grande rigueur et capacité d'adaptation.</p>
+                
+                <h4>Mes Missions et Réalisations</h4>
+                <ul>
+                    <li><strong>Analyse spectrale en mode DTF :</strong> Manipulation d'un analyseur de spectre pour tester des câbles Coaxial (RG58) et Ethernet (E8) en ajustant la vitesse de propagation des signaux.</li>
+                    <li><strong>Génération d'impulsions (GBF) :</strong> Configuration d'un Générateur Basses Fréquences en mode pulse pour injecter un signal test dans les lignes.</li>
+                    <li><strong>Vérification croisée à l'oscilloscope :</strong> Mesure des écarts temporels entre les signaux pour valider les résultats de l'analyseur de spectre.</li>
+                </ul>
+
+                <h4>Compétences développées</h4>
+                <ul>
+                    <li><strong>Autonomie et résolution de problèmes :</strong> Manipulation d'équipements de laboratoire complexes sans supervision.</li>
+                    <li><strong>Métrologie et Instrumentation :</strong> Utilisation d'analyseur de spectre, oscilloscope numérique et générateur de signaux.</li>
+                    <li><strong>Calcul physique :</strong> Exploitation concrète de la formule de distance d = v * t pour valider les mesures physiques.</li>
+                </ul>
+
+                <div class="btn-container">
+                    <a href="https://drive.google.com/file/d/1KuKw6KgYeKCUGeBdPgLw9XSNFqc-CkF-/view?usp=sharing" target="_blank" class="btn">Voir le Compte Rendu (PDF)</a>
+                </div>
+            </div>
+        </details>
+
+        <details>
+            <summary>SAÉ 1.04 : Conception et développement d'un site Web multipages</summary>
+            <div class="content">
+                <p><strong>Focus technique : Développement Front-End (HTML/CSS), Responsive Design et Gestion de projet</strong></p>
+                
+                <h4>Contexte et Objectifs</h4>
+                <p>L'objectif de ce projet était de concevoir et développer de A à Z un site Web multipages sur un thème libre. L'enjeu principal était de produire un code respectant scrupuleusement les standards du Web moderne, de garantir l'accessibilité pour tous les utilisateurs, et d'adopter une démarche professionnelle de gestion de projet et de versioning.</p>
+                
+                <h4>Mes Missions et Réalisations</h4>
+                <ul>
+                    <li><strong>Développement Web et Intégration :</strong> Création des pages du site en utilisant exclusivement HTML5 et CSS3.</li>
+                    <li><strong>Design et Interface (UI/UX) :</strong> Élaboration d'une charte graphique cohérente et intégration d'animations CSS.</li>
+                    <li><strong>Responsive Web Design :</strong> Utilisation avancée des modules CSS Flexbox et Grid pour garantir un affichage parfaitement adaptatif.</li>
+                    <li><strong>Gestion de projet :</strong> Définition des tâches via WBS (MindMap), création d'un rétroplanning (Gantt) et suivi quotidien sur un tableau Kanban (Trello).</li>
+                </ul>
+
+                <h4>Compétences développées</h4>
+                <ul>
+                    <li><strong>Maîtrise de Git et GitHub :</strong> Versionnement du code source, rédaction d'un README détaillé et hébergement en ligne via GitHub Pages.</li>
+                    <li><strong>Démarche Qualité et Accessibilité :</strong> Optimisation du code pour valider les standards du W3C et respecter la norme d'accessibilité WCAG 2.0 AA.</li>
+                </ul>
+
+                <div class="btn-container">
+                    <a href="https://github.com/younessadoukipro-del/Sae14/blob/main/index.html" target="_blank" class="btn btn-github">Voir le code sur GitHub</a>
+                    <a href="https://younessadoukipro-del.github.io/Sae14/" target="_blank" class="btn">Voir le site en ligne</a>
+                </div>
+            </div>
+        </details>
+
+        <details>
+            <summary>SAÉ 1.05 : Traiter des données</summary>
+            <div class="content">
+                <p><strong>Focus technique : Automatisation Python, manipulation d'API REST et génération de rapports</strong></p>
+                
+                <h4>Contexte et Objectifs</h4>
+                <p>L'objectif de cette SAÉ était de créer des scripts pour automatiser des traitements de données récurrents. Il s'agissait de récupérer des données brutes (liées à l'infrastructure réseau ou à de la cartographie via OSM), de les nettoyer, de les extraire et de les présenter de manière efficace.</p>
+                
+                <h4>Mes Missions et Réalisations</h4>
+                <ul>
+                    <li><strong>Collecte de données (API) :</strong> Écriture de requêtes automatisées pour interroger une API en ligne (OpenStreetMap) afin d'en récolter les données brutes.</li>
+                    <li><strong>Filtrage et mise en forme :</strong> Manipulation des réponses obtenues pour ne conserver et structurer que les informations pertinentes.</li>
+                    <li><strong>Traitement algorithmique :</strong> Réalisation de traitements statistiques sur le jeu de données via des scripts Python.</li>
+                    <li><strong>Génération de documents :</strong> Exportation automatisée des résultats et des statistiques vers des documents au format Markdown/HTML.</li>
+                </ul>
+
+                <h4>Compétences développées</h4>
+                <ul>
+                    <li><strong>Programmation Python :</strong> Utilisation de la bibliothèque `requests` pour effectuer des appels HTTP et manipuler des données distantes.</li>
+                    <li><strong>Exploitation d'API REST :</strong> Compréhension de l'architecture REST, des formats de données (XML, JSON) et analyse des codes de retour HTTP.</li>
+                    <li><strong>Mise en forme automatisée :</strong> Utilisation du Markdown pour générer des rapports statistiques clairs dynamiquement depuis le code.</li>
+                </ul>
+
+                <div class="btn-container">
+                    <a href="https://drive.google.com/drive/folders/1kOeszLvgYslL8cDrlySGi0ak6Pk8p9ks?usp=sharing" target="_blank" class="btn btn-github">Voir le projet Python sur DRIVE</a>
+                </div>
+            </div>
+        </details>
+    </main>
+
+    <!-- Footer identique à index.html -->
+    <footer>
+        <p>© 2025/2026 - Younes Sadouki | Projet Portfolio Universitaire</p>
+        <p style="font-size: 0.85rem; margin-top: 0.8rem; opacity: 0.7;">BUT Réseaux et Télécommunications — Spécialité Cybersécurité</p>
+    </footer>
+
+    <!-- Script pour fermer les autres onglets quand on en ouvre un -->
+    <script>
+        const details = document.querySelectorAll('details');
+        
+        details.forEach((targetDetail) => {
+            targetDetail.addEventListener('toggle', (event) => {
+                // Si l'onglet est en train d'être ouvert
+                if (targetDetail.open) {
+                    // Parcourir tous les autres onglets
+                    details.forEach((detail) => {
+                        // Fermer ceux qui sont différents de celui cliqué et qui sont ouverts
+                        if (detail !== targetDetail && detail.open) {
+                            detail.removeAttribute('open');
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>

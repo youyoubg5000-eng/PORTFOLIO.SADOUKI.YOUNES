@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projets & CV | Portfolio Younes Sadouki</title>
+    
+    <!-- Import de la même police que les autres pages -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            /* Palette unifiée */
+            --primary-dark: #0A192F;
+            --primary: #112B4C;
+            --secondary: #0077B6;
+            --accent-cyan: #00B4D8;
+            --accent-bg: #E0FBFC;
+            --text-dark: #1E293B;
+            --text-light: #475569;
+            --white: #FFFFFF;
+            
+            --bg-gradient: linear-gradient(135deg, #F8FAFC 0%, #EFF6FF 100%);
+            --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+            --hover-shadow: 0 20px 25px -5px rgba(0, 119, 182, 0.1), 0 10px 10px -5px rgba(0, 119, 182, 0.04);
+            --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+        }
+
+        body {
+            background: var(--bg-gradient);
+            color: var(--text-dark);
+            line-height: 1.8;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* --- NAVIGATION GLASSMORPHISM --- */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(10, 25, 47, 0.85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 1.2rem 4rem;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        nav .logo {
+            color: var(--white);
+            font-size: 1.5rem;
+            font-weight: 800;
+            text-decoration: none;
+            letter-spacing: 0.5px;
+        }
+
+        nav .logo span {
+            color: var(--accent-cyan);
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 3rem;
+        }
+
+        nav a {
+            color: rgba(255, 255, 255, 0.75);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: var(--transition);
+            position: relative;
+            padding: 0.5rem 0;
+        }
+
+        nav a:hover, nav a.active {
+            color: var(--accent-cyan);
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--accent-cyan);
+            transition: var(--transition);
+            border-radius: 2px;
+        }
+
+        nav a:hover::after, nav a.active::after {
+            width: 100%;
+        }
+
+        /* --- CONTENU PRINCIPAL --- */
+        main {
+            padding: 9rem 2rem 4rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            animation: fadeIn 1s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .section-title {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: var(--primary-dark);
+            margin-bottom: 3rem;
+            position: relative;
+            display: inline-block;
+            letter-spacing: -0.5px;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background: var(--accent-cyan);
+            border-radius: 4px;
+        }
+
+        /* --- GRILLES PROJETS --- */
+        .project-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2.5rem;
+            margin-bottom: 5rem;
+        }
+
+        .project-card {
+            background: var(--white);
+            padding: 3rem;
+            border-radius: 24px;
+            box-shadow: var(--card-shadow);
+            transition: var(--transition);
+            border: 1px solid rgba(0,0,0,0.03);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 4px;
+            background: var(--accent-cyan);
+            opacity: 0.5;
+            transition: var(--transition);
+        }
+
+        .project-card:hover {
+            box-shadow: var(--hover-shadow);
+            transform: translateY(-4px);
+        }
+
+        .project-card:hover::before {
+            opacity: 1;
+        }
+
+        .project-card h3 {
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+        }
+
+        .project-card p {
+            color: var(--text-light);
+            margin-bottom: 1rem;
+            font-size: 1.05rem;
+        }
+
+        .project-card strong {
+            color: var(--primary-dark);
+        }
+
+        /* --- CV DYNAMIQUE --- */
+        .cv-container {
+            display: grid;
+            grid-template-columns: 1fr 2.2fr;
+            gap: 3rem;
+            background: var(--white);
+            padding: 3.5rem;
+            border-radius: 24px;
+            box-shadow: var(--card-shadow);
+            border: 1px solid rgba(0,0,0,0.03);
+        }
+
+        /* Colonne de gauche (Sidebar) */
+        .cv-sidebar {
+            background: var(--bg-gradient);
+            padding: 2.5rem;
+            border-radius: 20px;
+            border: 1px solid rgba(0, 180, 216, 0.1);
+            height: fit-content;
+        }
+
+        .cv-sidebar h4 {
+            color: var(--primary-dark);
+            font-size: 1.15rem;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            border-bottom: 2px solid var(--white);
+            padding-bottom: 0.5rem;
+            font-weight: 700;
+        }
+
+        .cv-sidebar h4:first-child {
+            margin-top: 0;
+        }
+
+        .cv-sidebar p, .cv-sidebar li {
+            color: var(--text-light);
+            font-size: 0.95rem;
+            margin-bottom: 0.5rem;
+            line-height: 1.6;
+        }
+
+        .cv-sidebar ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        /* Colonne de droite (Main) */
+        .cv-main h3 {
+            font-size: 1.6rem;
+            color: var(--primary);
+            margin-top: 2.5rem;
+            margin-bottom: 2rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .cv-main h3:first-child {
+            margin-top: 0;
+        }
+
+        /* Timeline / Frise chronologique */
+        .timeline-item {
+            position: relative;
+            padding-left: 30px;
+            margin-bottom: 2.5rem;
+            border-left: 2px solid var(--accent-bg);
+        }
+
+        .timeline-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .timeline-item::before {
+            content: "";
+            position: absolute;
+            left: -8px;
+            top: 6px;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: var(--accent-cyan);
+            border: 3px solid var(--white);
+            box-shadow: 0 0 0 2px var(--accent-bg);
+            transition: var(--transition);
+        }
+
+        .timeline-item:hover::before {
+            background: var(--primary);
+            transform: scale(1.2);
+        }
+
+        .timeline-date {
+            font-weight: 700;
+            color: var(--secondary);
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.3rem;
+        }
+
+        .timeline-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 0.3rem;
+        }
+
+        .timeline-subtitle {
+            font-style: italic;
+            color: var(--text-light);
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+        
+        .timeline-item p {
+            color: var(--text-light);
+            font-size: 0.95rem;
+            margin: 0;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            background: var(--primary-dark);
+            color: rgba(255,255,255,0.7);
+            text-align: center;
+            padding: 3rem 2rem;
+            margin-top: 6rem;
+            font-size: 0.95rem;
+            border-top: 4px solid var(--accent-cyan);
+        }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 1024px) {
+            nav { padding: 1.2rem 2rem; }
+            .cv-container { grid-template-columns: 1fr; }
+            .cv-sidebar { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+            .cv-sidebar h4 { margin-top: 0; }
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                flex-direction: column;
+                gap: 1rem;
+                padding: 1rem;
+            }
+            nav ul { gap: 1.5rem; }
+            main { padding-top: 8rem; }
+            .project-grid { grid-template-columns: 1fr; }
+            .project-card, .cv-container { padding: 2rem; }
+            .cv-sidebar { grid-template-columns: 1fr; gap: 0; }
+            .cv-sidebar h4 { margin-top: 1.5rem; }
+            .cv-sidebar h4:first-child { margin-top: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="index.html" class="logo">Younes<span>.Sadouki</span></a>
+        <ul>
+            <li><a href="index.html">Présentation</a></li>
+            <li><a href="sae.html">Analyses SAÉ</a></li>
+            <li><a href="projets_cv.html" class="active">Projets & CV</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <h2 class="section-title">Mes Autres Projets</h2>
+        
+        <div class="project-grid">
+            <div class="project-card">
+                <h3>S'initier aux réseaux (Cisco)</h3>
+                <p><strong>Compétence :</strong> RT1 Administrer (AC11.01)</p>
+                <p><strong>Objectif :</strong> Déploiement d'une maquette fonctionnelle et préparation à la certification Cisco CCNA.</p>
+                <p><strong>Réalisations :</strong> Câblage physique respectant les normes, configuration des switchs et routeurs via la CLI (IOS Cisco), adressage IP et sécurisation des accès (console, VTY).</p>
+                <p style="margin-top: auto; padding-top: 1rem; font-style: italic; color: #64748b; border-top: 1px solid #f1f5f9;">
+                    Ce projet m'a permis de donner du sens au modèle OSI en manipulant les couches physiques, liaisons et réseaux.
+                </p>
+            </div>
+            
+            <div class="project-card">
+                <h3>Se présenter sur Internet</h3>
+                <p><strong>Compétence :</strong> RT2 Connecter (AC12.02)</p>
+                <p><strong>Objectif :</strong> Création de A à Z d'un site web statique pour maîtriser les fondamentaux des technologies web.</p>
+                <p><strong>Réalisations :</strong> Développement en HTML5 (sémantique) et CSS3 (mise en forme, Flexbox/Grid). Séparation claire entre le contenu et le design.</p>
+                <p style="margin-top: auto; padding-top: 1rem; font-style: italic; color: #64748b; border-top: 1px solid #f1f5f9;">
+                    Cet apprentissage a été le socle technique m'ayant permis de coder et d'intégrer moi-même ce portfolio dynamique.
+                </p>
+            </div>
+        </div>
+
+        <h2 class="section-title">Curriculum Vitae</h2>
+        
+        <div class="cv-container">
+            <div class="cv-sidebar">
+                <h4>Contact</h4>
+                <p>📞 06.17.82.72.34</p>
+                <p>✉️ younes.sadouki.pro@gmail.com</p>
+                <p>📍 14200 Hérouville-Saint-Clair</p>
+
+                <h4>Compétences & Soft Skills</h4>
+                <ul>
+                    <li>✔️ Leadership & Travail en équipe</li>
+                    <li>✔️ Autonomie & Organisation</li>
+                    <li>✔️ Adaptabilité</li>
+                </ul>
+
+                <h4>Outils & Informatique</h4>
+                <ul>
+                    <li>💻 Pack Office (Word, Excel)</li>
+                    <li>💻 Certification PIX</li>
+                    <li>⚙️ Réseaux (Cisco CLI) & Dev (Python, HTML/CSS)</li>
+                </ul>
+
+                <h4>Langues</h4>
+                <p>Anglais : B2<br>Arabe : C1</p>
+            </div>
+
+            <div class="cv-main">
+                <h3>🎓 Formation</h3>
+                <div class="timeline-item">
+                    <div class="timeline-date">2025 - 2028</div>
+                    <div class="timeline-title">BUT Réseaux et Télécommunication, Cybersécurité</div>
+                    <div class="timeline-subtitle">IUT Grand Ouest Normandie</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">2024 - 2025</div>
+                    <div class="timeline-title">1ère année d'école d'ingénieur Construction</div>
+                    <div class="timeline-subtitle">Builders école d'ingénieur, Caen</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">2024</div>
+                    <div class="timeline-title">Baccalauréat Général (Physique-Chimie, Maths expertes, NSI)</div>
+                    <div class="timeline-subtitle">Lycée Malherbe, Caen | Ambassadeur PhaRe</div>
+                </div>
+
+                <h3>💼 Expériences Professionnelles & Associatives</h3>
+                <div class="timeline-item">
+                    <div class="timeline-date">Sept. 2024 - Déc. 2024</div>
+                    <div class="timeline-title">Équipier polyvalent (CDI)</div>
+                    <div class="timeline-subtitle">Burger King, Mondeville</div>
+                    <p>Prise de commande, service client, gestion des flux sous pression.</p>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">2024</div>
+                    <div class="timeline-title">Agent de quai (Intérim)</div>
+                    <div class="timeline-subtitle">Start People, Ifs</div>
+                    <p>Réception/expédition, optimisation de l'organisation logistique.</p>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">Depuis 2021 (Chef d'équipe depuis 2024)</div>
+                    <div class="timeline-title">Bénévole & Chef d'équipe</div>
+                    <div class="timeline-subtitle">Association humanitaire LVD, Hérouville-St-Clair</div>
+                    <p>Organisation de maraudes, encadrement d'équipe, logistique.</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>© 2025/2026 - Younes Sadouki | Projet Portfolio Universitaire</p>
+        <p style="font-size: 0.85rem; margin-top: 0.8rem; opacity: 0.7;">BUT Réseaux et Télécommunications — Spécialité Cybersécurité</p>
+    </footer>
+
+</body>
+</html>
